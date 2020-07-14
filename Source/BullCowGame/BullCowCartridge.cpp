@@ -14,24 +14,27 @@ void UBullCowCartridge::OnInput(const FString& Input) // When the player hits en
         ClearScreen();
         InitGame();
     } else {
-        if (Lives > 0) {
-            if (Input == HiddenWord) {
-                PrintLine(TEXT("You Win"));
-                EndGame();
-            } else {
-                --Lives;
-                PrintLine(TEXT("Fuck off"));
-                PrintLine(TEXT("%d lives left"), Lives);
-            }
-        }
-        if (Lives == 0) {
-            PrintLine(TEXT("Game Over"));
-            EndGame();
-        }
-        // PrintLine(TEXT("HiddenWord is %s"), *HiddenWord); // PrintLine 需要運用指標才能找到string的array  i.g.cake -> [c, a, k, e, \0]
-        PrintLine(Input);
-
+        Guess(Input);
     }
+}
+
+void UBullCowCartridge::Guess(FString Input) {
+    if (Lives > 0) {
+        if (Input == HiddenWord) {
+            PrintLine(TEXT("You Win"));
+            EndGame();
+        } else {
+            --Lives;
+            PrintLine(TEXT("Fuck off"));
+            PrintLine(TEXT("%d lives left"), Lives);
+        }
+    }
+    if (Lives == 0) {
+        PrintLine(TEXT("Game Over"));
+        EndGame();
+    }
+    // PrintLine(TEXT("HiddenWord is %s"), *HiddenWord); // PrintLine 需要運用指標才能找到string的array  i.g.cake -> [c, a, k, e, \0]
+    PrintLine(Input);
 }
 
 void UBullCowCartridge::InitGame() {
